@@ -11,7 +11,12 @@ export async function streamChat(
   onChunk: (delta: string) => void,
   signal: AbortSignal
 ): Promise<string> {
-  const url = `${settings.apiBaseUrl.replace(/\/$/, '')}/chat/completions`;
+  // Tự động làm sạch Base URL: Xoá dấu gạch chéo ở cuối (nếu có) và xoá đuôi /chat/completions (nếu lỡ nhập dư)
+  const cleanBaseUrl = settings.apiBaseUrl
+    .replace(/\/$/, '') 
+    .replace(/\/chat\/completions$/, ''); 
+    
+  const url = `${cleanBaseUrl}/chat/completions`;
   
   let res: Response;
   try {
@@ -19,6 +24,9 @@ export async function streamChat(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        // Thêm headers định danh theo yêu cầu của OpenRouter
+        'HTTP-Referer': 'https://mong-gioi-blush.vercel.app', // Link web của bạn
+        'X-Title': 'Mong Gioi RPG',
         ...(settings.apiKey ? { Authorization: `Bearer ${settings.apiKey}` } : {}),
       },
       body: JSON.stringify({
@@ -78,14 +86,22 @@ export async function streamChat(
 }
 
 export async function testConnection(settings: Settings): Promise<string> {
-  const url = `${settings.apiBaseUrl.replace(/\/$/, '')}/models`;
+  // Làm sạch URL tương tự hàm trên
+  const cleanBaseUrl = settings.apiBaseUrl
+    .replace(/\/$/, '') 
+    .replace(/\/chat\/completions$/, ''); 
+    
+  const url = `${cleanBaseUrl}/models`;
+  
   try {
     const res = await fetch(url, {
-      headers: settings.apiKey ? { Authorization: `Bearer ${settings.apiKey}` } : {},
+      headers: {
+        'HTTP-Referer': 'https://mong-gioi-blush.vercel.app',
+        'X-Title': 'Mong Gioi RPG',
+        ...(settings.apiKey ? { Authorization: `Bearer ${settings.apiKey}` } : {}),
+      },
     });
     if (!res.ok) throw new Error(`Mã lỗi HTTP ${res.status}`);
-    
-    // Không cần khai báo biến data nữa để tránh lỗi TypeScript bắt bẻ
     return `Kết nối thành công!`;
   } catch (e: any) {
     throw new Error(`Không kết nối được. Chi tiết: ${e.message}.`);
