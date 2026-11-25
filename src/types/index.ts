@@ -1,7 +1,3 @@
-// ============================================================
-// Định nghĩa toàn bộ kiểu dữ liệu của Mộng Giới
-// ============================================================
-
 export type EntityRole = 'npc' | 'creature' | 'item' | 'faction';
 export type TimeOfDay = 'sáng' | 'trưa' | 'chiều' | 'tối' | 'đêm';
 
@@ -34,6 +30,13 @@ export interface World {
   createdAt: number;
   updatedAt: number;
   isPreset?: boolean;
+  
+  // 5 trường mới thêm (Dấu ? nghĩa là có thể bỏ trống)
+  genre?: string;
+  tone?: string;
+  magicLevel?: string;
+  worldRules?: string;
+  factions?: string;
 }
 
 export interface Character {

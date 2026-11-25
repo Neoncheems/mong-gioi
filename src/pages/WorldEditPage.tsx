@@ -133,11 +133,11 @@ export function WorldEditPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-error/5 border border-error/20 rounded-lg">
               <div>
                 <label className="block text-sm text-error font-semibold mb-1">Quy tắc thế giới (AI bắt buộc tuân thủ)</label>
-                <textarea value={world.worldRules || ''} onChange={e => setWorld({...world, worldRules: e.target.value})} className="w-full bg-bg-3 border border-border rounded-lg px-3 py-2 text-text focus:ring-2 focus:ring-accent outline-none text-sm" rows={3} placeholder="VD: Không ai có thể hồi sinh. Cấm sử dụng vũ khí hạt nhân..." />
+                <textarea value={world.worldRules || ''} onChange={e => setWorld({...world, worldRules: e.target.value})} className="w-full bg-bg-3 border border-border rounded-lg px-3 py-2 text-text focus:ring-2 focus:ring-accent outline-none text-sm" rows={3} placeholder="VD: Không ai có thể hồi sinh..." />
               </div>
               <div>
                 <label className="block text-sm text-text-2 mb-1">Các thế lực / Bang phái chính</label>
-                <textarea value={world.factions || ''} onChange={e => setWorld({...world, factions: e.target.value})} className="w-full bg-bg-3 border border-border rounded-lg px-3 py-2 text-text focus:ring-2 focus:ring-accent outline-none text-sm" rows={3} placeholder="VD: Hội Pháp Sư, Quân đội Đế chế, Bang Hắc Long..." />
+                <textarea value={world.factions || ''} onChange={e => setWorld({...world, factions: e.target.value})} className="w-full bg-bg-3 border border-border rounded-lg px-3 py-2 text-text focus:ring-2 focus:ring-accent outline-none text-sm" rows={3} placeholder="VD: Hội Pháp Sư, Quân đội..." />
               </div>
             </div>
 
