@@ -20,7 +20,6 @@ export function buildSystemPrompt(
 
   const summaryStr = summary ? '=== TÓM TẮT TRƯỚC ĐÓ ===\n' + summary + '\n' : '';
   
-  // Tạo 3 dấu huyền tự động
   const md = String.fromCharCode(96) + String.fromCharCode(96) + String.fromCharCode(96);
 
   const customRules = [
