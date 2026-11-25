@@ -84,7 +84,8 @@ export async function testConnection(settings: Settings): Promise<string> {
       headers: settings.apiKey ? { Authorization: `Bearer ${settings.apiKey}` } : {},
     });
     if (!res.ok) throw new Error(`Mã lỗi HTTP ${res.status}`);
-    const data = await res.json();
+    
+    // Không cần khai báo biến data nữa để tránh lỗi TypeScript bắt bẻ
     return `Kết nối thành công!`;
   } catch (e: any) {
     throw new Error(`Không kết nối được. Chi tiết: ${e.message}.`);
