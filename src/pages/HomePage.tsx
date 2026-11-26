@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWorlds } from '../store/useWorlds';
 import { useToast } from '../store/useToast';
+import { useAuth } from '../store/useAuth'; // Thêm import này để đồng bộ user
 import { T } from '../utils/strings';
 import { Plus, Upload, Play, Edit, Trash2, Download, Clock, User } from 'lucide-react';
 import { CharacterEditor } from '../components/CharacterEditor';
@@ -11,6 +12,7 @@ import { db } from '../db/db';
 
 export function HomePage() {
   const { worlds, isLoading, init, create, remove, importWorld } = useWorlds();
+  const { user } = useAuth(); // Lấy thông tin user
   const [playingWorld, setPlayingWorld] = useState<World | null>(null);
   const toast = useToast();
   const navigate = useNavigate();
@@ -19,9 +21,10 @@ export function HomePage() {
   // Tự động lấy danh sách các ván chơi (saves) từ database
   const saves = useLiveQuery(() => db.saves.orderBy('updatedAt').reverse().toArray(), []) || [];
 
+  // Tự động tải lại thế giới khi có user đăng nhập (để kéo dữ liệu từ mây về)
   useEffect(() => {
     init();
-  }, []);
+  }, [user]); 
 
   const handleCreate = async () => {
     const w = await create({});
